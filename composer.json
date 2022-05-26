@@ -9,10 +9,9 @@
 			"Peroks\\GuzzleFileCache\\": "src/"
 		}
 	},
-	"platform": {
-		"php": "^7.4"
-	},
 	"require": {
-		"guzzlehttp/guzzle": "^7.4"
+		"guzzlehttp/guzzle": "^7.4",
+		"php": "^7.4 || ^8.0",
+		"psr/simple-cache": "^1.0"
 	}
 }
