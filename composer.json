@@ -4,6 +4,12 @@
 	"description": "A lightweight file cache for Guzzle 7+ implementing the PSR-16 Caching Interface",
 	"minimum-stability": "stable",
 	"license": "MIT",
+	"authors": [
+		{
+			"name": "Per Egil Roksvaag",
+			"homepage": "https://github.com/peroks"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"Peroks\\GuzzleFileCache\\": "src/"
