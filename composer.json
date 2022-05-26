@@ -1,0 +1,15 @@
+{
+	"name": "peroks/guzzle-file-cache",
+	"type": "library",
+	"description": "A lightweight file cache for Guzzle 7+ implementing the PSR-16 Caching Interface",
+	"minimum-stability": "stable",
+	"autoload": {
+		"psr-4": {
+			"Peroks\\GuzzleFileCache\\": "./src"
+		}
+	},
+	"platform": {
+		"php": "^7.4"
+	},
+	"license": "MIT"
+}
