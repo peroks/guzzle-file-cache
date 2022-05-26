@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"autoload": {
 		"psr-4": {
-			"Peroks\\GuzzleFileCache\\": "./src"
+			"Peroks\\GuzzleFileCache\\": "src/"
 		}
 	},
 	"platform": {
