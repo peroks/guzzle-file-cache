@@ -42,7 +42,7 @@ class FileStorage implements CacheInterface {
 	 * Creates the cache storage directory if necessary.
 	 */
 	public function init() {
-		file_exists( $this->dir ) || mkdir( $this->dir, 0775, true );
+		file_exists( $this->dir ) || mkdir( $this->dir, 0664, true );
 	}
 
 	/**
