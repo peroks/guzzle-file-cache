@@ -1,4 +1,4 @@
-# peroks/guzzle-file-cache
+# Simple file caching for the Guzzle http client
 ### A lightweight file cache for Guzzle 7+ implementing the PSR-16 Caching Interface
 
 ## How to use
