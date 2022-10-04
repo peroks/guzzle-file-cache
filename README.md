@@ -33,7 +33,7 @@ option for caching: `ttl` (time-to-live). The `ttl` value is in seconds.
 You can set this option for each request sent through the client.
 If you omit this option or set `ttl` to `0`, the request is not cached.
 
-    $response = $client->send( $request, [ 'ttl' => 3600 ] ); // 1 hour cashing.
+    $response = $client->send( $request, [ 'ttl' => 3600 ] ); // 1 hour caching.
 
 ## Installing
 
