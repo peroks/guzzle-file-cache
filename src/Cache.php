@@ -21,6 +21,14 @@ use Psr\SimpleCache\CacheInterface;
  */
 class Cache {
 
+	// Time constants.
+	const SECOND = 1;
+	const MINUTE = 60 * self::SECOND;
+	const HOUR   = 60 * self::MINUTE;
+	const DAY    = 24 * self::HOUR;
+	const WEEK   = 7 * self::DAY;
+	const MONTH  = 30 * self::DAY;
+
 	/**
 	 * @var CacheInterface A PSR-16 caching implementation for storing responses.
 	 */
