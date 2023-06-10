@@ -45,7 +45,7 @@ class Cache {
 	 * @param CacheInterface $storage A PSR-16 caching implementation for storing responses.
 	 * @param array|object $options An array or object of configuration options (key/value pairs).
 	 */
-	public function __construct( CacheInterface $storage, $options = [] ) {
+	public function __construct( CacheInterface $storage, array | object $options = [] ) {
 		$this->storage = $storage;
 		$this->options = (object) $options;
 	}
@@ -57,7 +57,7 @@ class Cache {
 	 *
 	 * @return callable A function accepting a RequestInterface instance.
 	 */
-	public function __invoke( callable $next ) {
+	public function __invoke( callable $next ): callable {
 		return function( RequestInterface $request, array $options ) use ( $next ) {
 			$ttl = $options['ttl'] ?? $this->options->ttl ?? 0;
 			$key = $this->getKey( $request );

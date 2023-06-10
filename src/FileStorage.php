@@ -3,7 +3,6 @@
 use DateInterval;
 use DirectoryIterator;
 use GuzzleHttp\Psr7\Utils;
-use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\CacheInterface;
 
 /**
@@ -32,7 +31,7 @@ class FileStorage implements CacheInterface {
 	 * @param string $dir The cache storage directory.
 	 * @param array|object $options An array or object of configuration options (key/value pairs).
 	 */
-	public function __construct( string $dir, $options = [] ) {
+	public function __construct( string $dir, array | object $options = [] ) {
 		$this->dir     = rtrim( $dir, '/' . DIRECTORY_SEPARATOR );
 		$this->options = (object) $options;
 		$this->init();
@@ -51,10 +50,12 @@ class FileStorage implements CacheInterface {
 	 * @param string $key The unique key of this item in the cache.
 	 * @param mixed $default Default value to return if the key does not exist.
 	 *
-	 * @return ResponseInterface|null The value of the item from the cache, or $default in case of cache miss.
-	 * @throws \Psr\SimpleCache\InvalidArgumentException MUST be thrown if the $key string is not a legal value.
+	 * @return mixed The value of the item from the cache, or $default in case of cache miss.
+	 *
+	 * @throws \Psr\SimpleCache\InvalidArgumentException
+	 *   MUST be thrown if the $key string is not a legal value.
 	 */
-	public function get( $key, $default = null ): ?ResponseInterface {
+	public function get( string $key, mixed $default = null ): mixed {
 		$this->validateKey( $key );
 		$file = $this->dir . DIRECTORY_SEPARATOR . $key;
 
@@ -72,13 +73,17 @@ class FileStorage implements CacheInterface {
 	 * Persists data in the cache, uniquely referenced by a key with an optional expiration TTL time.
 	 *
 	 * @param string $key The key of the item to store.
-	 * @param ResponseInterface $response The value of the item to store, must be serializable.
-	 * @param DateInterval|int|null $ttl Optional. The TTL value of this item.
+	 * @param mixed $response The value of the item to store, must be serializable.
+	 * @param DateInterval|int|null $ttl Optional. The TTL value of this item. If no value is sent and
+	 *   the driver supports TTL then the library may set a default value
+	 *   for it or let the driver take care of that.
 	 *
 	 * @return bool True on success and false on failure.
-	 * @throws \Psr\SimpleCache\InvalidArgumentException MUST be thrown if the $key string is not a legal value.
+	 *
+	 * @throws \Psr\SimpleCache\InvalidArgumentException
+	 *   MUST be thrown if the $key string is not a legal value.
 	 */
-	public function set( $key, $response, $ttl = null ): bool {
+	public function set( string $key, mixed $response, DateInterval | int | null $ttl = null ): bool {
 		$this->validateKey( $key );
 		$file = $this->dir . DIRECTORY_SEPARATOR . $key;
 		$body = (string) $response->getBody();
@@ -142,7 +147,7 @@ class FileStorage implements CacheInterface {
 	 *     value.
 	 * @throws \Psr\SimpleCache\InvalidArgumentException MUST be thrown if $keys is neither an array nor a Traversable.
 	 */
-	public function getMultiple( $keys, $default = null ) {
+	public function getMultiple( iterable $keys, $default = null ): iterable {
 		$this->validateMultiple( $keys );
 		$result = [];
 
@@ -218,12 +223,12 @@ class FileStorage implements CacheInterface {
 	/**
 	 * Validates the cache key.
 	 *
-	 * @param string $key A cache key.
+	 * @param mixed $key A cache key.
 	 *
 	 * @return bool
 	 * @throws \Psr\SimpleCache\InvalidArgumentException if the $key string is not a legal value.
 	 */
-	public function validateKey( $key ): bool {
+	public function validateKey( mixed $key ): bool {
 		if ( is_string( $key ) ) {
 			return true;
 		}
@@ -235,12 +240,12 @@ class FileStorage implements CacheInterface {
 	/**
 	 * Validates the multiple cache keys or values.
 	 *
-	 * @param iterable $list A list of string-based keys or key/value pairs.
+	 * @param mixed $list A list of string-based keys or key/value pairs.
 	 *
 	 * @return bool
 	 * @throws \Psr\SimpleCache\InvalidArgumentException if $list is neither an array nor a Traversable.
 	 */
-	public function validateMultiple( $list ): bool {
+	public function validateMultiple( mixed $list ): bool {
 		if ( is_iterable( $list ) ) {
 			return true;
 		}
