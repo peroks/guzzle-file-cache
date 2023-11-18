@@ -1,4 +1,4 @@
-<?php namespace Peroks\GuzzleFileCache;
+<?php declare( strict_types = 1 ); namespace Peroks\GuzzleFileCache;
 
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Promise\Promise;
@@ -100,9 +100,9 @@ class Cache {
 
 		$key = array_filter( [
 			'method'  => $request->getMethod(),
-			'uri'     => trim( $request->getUri() ),
+			'uri'     => (string) $request->getUri(),
 			'headers' => join( $sep, $headers ),
-			'body'    => trim( $request->getBody() ),
+			'body'    => (string) $request->getBody(),
 		] );
 
 		return sha1( join( $sep, $key ) );

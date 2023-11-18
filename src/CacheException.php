@@ -1,4 +1,4 @@
-<?php namespace Peroks\GuzzleFileCache;
+<?php declare( strict_types = 1 ); namespace Peroks\GuzzleFileCache;
 
 use Exception;
 
